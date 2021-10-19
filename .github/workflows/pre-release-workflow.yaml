@@ -38,19 +38,19 @@ jobs:
         with:
           from-tag: master
           to-tag: ${{ steps.cc.outputs.calculated_next_version }}
-      - name: Get latest release
+      - name: Get last pre-release
         id: latest_release
         uses: kaliber5/action-get-release@v1
         with:
           token: ${{ secrets.GIT_TOK }}
-          latest: true
-      - name: Update release
+          tag_name: ${{ github.event.release.tag_name }}
+      - name: Update last Pre-release
         uses: kaliber5/action-update-release@v1
         with:
           token: ${{ secrets.GIT_TOK }}
           id: ${{ steps.latest_release.outputs.id }}
-          name: rc-${{ steps.cc.outputs.calculated_next_version }}
-          tag_name: rc-1.2.4
+          name: Version ${{ steps.cc.outputs.calculated_next_version }}
+          tag_name: rc-${{ steps.cc.outputs.calculated_next_version }}
           body: |
             ${{ steps.Changelog.outputs.changelog }}
       - uses: actions/checkout@master
