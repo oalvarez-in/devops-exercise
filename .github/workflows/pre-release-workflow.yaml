@@ -7,6 +7,18 @@ jobs:
     if: "github.event.release.prerelease"
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2.3.4
+        with:
+          ssh-key: ${{ secrets.GH_SSH_KEY }}
+          submodules: recursive
+          fetch-depth: 0
+      - name: Checkout GitHub Action Repo
+        uses: actions/checkout@v2
+        with:
+          repository: Grupo-Abraxas/arkon-cc-next-version
+          ref: v0.1.2-SNAPSHOP
+          ssh-key: ${{ secrets.GH_SSH_KEY }}
+          path: .github/actions/my-action    
       - name: Get conventional commits next version
         uses: ./.github/actions/my-action
         id: cc
@@ -24,7 +36,7 @@ jobs:
         uses: scottbrenner/generate-changelog-action@master
         id: Changelog
         with:
-          from-tag: dev
+          from-tag: master
           to-tag: ${{ steps.cc.outputs.calculated_next_version }}
       - name: Get latest release
         id: latest_release
