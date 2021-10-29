@@ -15,7 +15,7 @@ metadata:
       title: DockerHub
       icon: cloud
 spec:
-  type: website
+  type: service
   lifecycle: production
   owner: oalvarez-in
   system: artist-engagement-portal
