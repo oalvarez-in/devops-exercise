@@ -22,8 +22,8 @@ jobs:
         with:
           token: ${{ secrets.GIT_TOK }}
           id: ${{ github.event.release.tag_name }}
-          name: Version rc-${{ github.event.release.tag_name }}
-          tag_name: rc-${{ github.event.release.tag_name }}
+          name: Version ${{ github.event.release.tag_name }}
+          tag_name: ${{ github.event.release.tag_name }}
           body: |
             ${{ steps.github_release.outputs.changelog }}
       - uses: actions/checkout@master
