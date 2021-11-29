@@ -25,7 +25,7 @@ jobs:
         with:
           token: ${{ secrets.GIT_TOK }}
           id: ${{ github.event.release.tag_name }}
-          body: ${{ steps.github_release.outputs.changelog }}
+          body: "Test Update Kaliber5"
       - uses: actions/checkout@master
       - run: |
           echo $pre_release
