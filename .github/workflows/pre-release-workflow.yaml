@@ -14,9 +14,9 @@ jobs:
           fetch-depth: 0
       - name: Build Changelog
         id: github_release
-        uses: mikepenz/release-changelog-builder-action@v1
+        uses: mikepenz/release-changelog-builder-action@{latest-release}
         env:
-          GITHUB_TOKEN: ${{ secrets.GIT_TOK }}          
+          GITHUB_TOKEN: ${{ secrets.GIT_TOK }}         
       - name: Update last Pre-release
         uses: kaliber5/action-update-release@v1
         with:
