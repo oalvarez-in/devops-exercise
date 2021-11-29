@@ -12,47 +12,20 @@ jobs:
           token: ${{ secrets.GIT_TOK }}
           submodules: recursive
           fetch-depth: 0
-      - name: Checkout GitHub Action Repo
-        uses: actions/checkout@v2
-        with:
-          repository: Grupo-Abraxas/arkon-cc-next-version
-          ref: v0.1.2-SNAPSHOP
-          token: ${{ secrets.GIT_TOK }}
-          path: .github/actions/my-action    
-      - name: Get conventional commits next version
-        uses: ./.github/actions/my-action
-        id: cc
-        with:
-          project: "."
-          prefix: ""
-      - name: Check next version
-        run: |
-          if [ ${{ steps.cc.outputs.latest_tag }} = ${{ steps.cc.outputs.calculated_next_version }} ] ; then
-          echo "- No changes"
-          exit 1
-          fi
-          echo "NEXT_VERSION:"${{ steps.cc.outputs.calculated_next_version }}    
-      - name: Changelog
-        uses: scottbrenner/generate-changelog-action@master
-        id: Changelog
-        with:
-          from-tag: master
-          to-tag: ${{ steps.cc.outputs.calculated_next_version }}
-      - name: Get last pre-release
-        id: latest_release
-        uses: kaliber5/action-get-release@v1
-        with:
-          token: ${{ secrets.GIT_TOK }}
-          tag_name: ${{ github.event.release.tag_name }}
+      - name: Build Changelog
+        id: github_release
+        uses: mikepenz/release-changelog-builder-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_TOK }}          
       - name: Update last Pre-release
         uses: kaliber5/action-update-release@v1
         with:
           token: ${{ secrets.GIT_TOK }}
-          id: ${{ steps.latest_release.outputs.id }}
-          name: Version ${{ steps.cc.outputs.calculated_next_version }}
-          tag_name: rc-${{ steps.cc.outputs.calculated_next_version }}
+          id: ${{ github.event.release.tag_name }}
+          name: Version rc-${{ github.event.release.tag_name }}
+          tag_name: rc-${{ github.event.release.tag_name }}
           body: |
-            ${{ steps.Changelog.outputs.changelog }}
+            ${{ steps.github_release.outputs.changelog }}
       - uses: actions/checkout@master
       - run: |
           echo $pre_release
