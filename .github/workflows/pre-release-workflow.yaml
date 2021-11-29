@@ -16,6 +16,7 @@ jobs:
         id: github_release
         uses: mikepenz/release-changelog-builder-action@v1
         with:
+          fromTag: "master"
           toTag: ${{ github.event.release.tag_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_TOK }}         
@@ -24,7 +25,7 @@ jobs:
         with:
           token: ${{ secrets.GIT_TOK }}
           id: ${{ github.event.release.tag_name }}
-          body: ${{steps.github_release.outputs.changelog}}
+          body: ${{ steps.github_release.outputs.changelog }}
       - uses: actions/checkout@master
       - run: |
           echo $pre_release
