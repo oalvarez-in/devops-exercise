@@ -12,11 +12,17 @@ jobs:
           token: ${{ secrets.GIT_TOK }}
           submodules: recursive
           fetch-depth: 0
+      - name: Get conventional commits next version
+        uses: ./.github/actions/my-action
+        id: cc
+        with:
+          project: "."
+          prefix: ""          
       - name: Build Changelog
         id: github_release
         uses: mikepenz/release-changelog-builder-action@v1
         with:
-          fromTag: "master"
+          fromTag: ${{ steps.cc.outputs.latest_tag }}
           toTag: ${{ github.event.release.tag_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_TOK }}
@@ -31,7 +37,7 @@ jobs:
         with:
           token: ${{ secrets.GIT_TOK }}
           id: ${{ steps.latest_release.outputs.id }}
-          body: "Test Update Kaliber5"
+          body: ${{ steps.github_release.outputs.changelog }}
       - uses: actions/checkout@master
       - run: |
           echo $pre_release
