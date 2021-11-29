@@ -6,7 +6,7 @@
       },
       {
         "title": "## 🐛 Fixes",
-        "labels": ["fix"]
+        "labels": ["fix", "bug"]
       },
       {
         "title": "## 🧪 Tests",
@@ -31,8 +31,5 @@
       "filter": {
         "pattern": "rc-(.+)"
       }
-    },
-    "base_branches": [
-      "master"
-    ]
+    }
 }
