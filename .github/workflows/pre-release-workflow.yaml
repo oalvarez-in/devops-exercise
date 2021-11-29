@@ -19,12 +19,18 @@ jobs:
           fromTag: "master"
           toTag: ${{ github.event.release.tag_name }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GIT_TOK }}         
+          GITHUB_TOKEN: ${{ secrets.GIT_TOK }}
+      - name: Get last pre-release
+        id: latest_release
+        uses: kaliber5/action-get-release@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag_name: ${{ github.event.release.tag_name }}          
       - name: Update last Pre-release
         uses: kaliber5/action-update-release@v1
         with:
           token: ${{ secrets.GIT_TOK }}
-          id: ${{ github.event.release.tag_name }}
+          id: ${{ steps.latest_release.outputs.id }}
           body: "Test Update Kaliber5"
       - uses: actions/checkout@master
       - run: |
