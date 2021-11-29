@@ -1,32 +1,30 @@
 {
-    "categories": [
+  "pr_template": "- ${{TITLE}} (#${{NUMBER}})",
+  "categories": [
       {
-        "title": "## 🚀 Features",
-        "labels": ["feature", "enhacement"]
+          "title": "## 🚀 Features",
+          "labels": ["enhancement", "feature"]
       },
       {
-        "title": "## 🐛 Fixes",
-        "labels": ["fix", "bug"]
+          "title": "## 🛠️ Minor Changes",
+          "labels": ["change"]
       },
       {
-        "title": "## 🧪 Tests",
-        "labels": ["test"]
+          "title": "## 🔎 Breaking Changes",
+          "labels": ["breaking"]
+      },
+      {
+          "title": "## 🐛 Fixes",
+          "labels": ["bug", "fix"]
+      },
+      {
+          "title": "## 📄 Documentation",
+          "labels": ["documentation"]
+      },
+      {
+          "title": "## 🔗 Dependency Updates",
+          "labels": ["dependency"]
       }
-    ],
-    "ignore_labels": [
-      "ignore"
-    ],
-    "sort": "ASC",
-    "template": "${{CHANGELOG}}\n\n<details>\n<summary>Uncategorized</summary>\n\n${{UNCATEGORIZED}}\n</details>",
-    "pr_template": "- ${{TITLE}}\n   - PR: #${{NUMBER}}",
-    "empty_template": "- no changes",
-    "max_tags_to_fetch": 1000,
-    "max_pull_requests": 1000,
-    "max_back_track_time_days": 1000,
-    "tag_resolver": {
-      "method": "semver",
-      "filter": {
-        "pattern": "rc-(.+)"
-      }
-    }
+  ],
+  "template": "${{CATEGORIZED_COUNT}} changes since ${{FROM_TAG}}\n\n${{CHANGELOG}}"
 }
