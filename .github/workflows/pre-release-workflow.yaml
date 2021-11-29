@@ -13,11 +13,6 @@ jobs:
       - name: Build Changelog
         id: github_release
         uses: mikepenz/release-changelog-builder-action@v1
-        with:
-          configuration: ".github/config/configuration.json"
-          owner: "oalvarez-in"
-          ignorePreReleases: "${{ !contains('rc-', github.ref) }}"
-          failOnError: true
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_TOK }}
       - name: Get last pre-release
