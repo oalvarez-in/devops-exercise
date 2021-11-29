@@ -26,5 +26,11 @@
           "labels": ["dependency"]
       }
   ],
-  "template": "${{CATEGORIZED_COUNT}} changes since ${{FROM_TAG}}\n\n${{CHANGELOG}}"
+  "template": "${{CATEGORIZED_COUNT}} changes since ${{FROM_TAG}}\n\n${{CHANGELOG}}",
+  "tag_resolver": {
+      "method": "semver",
+      "filter": {
+        "pattern": "rc-(.+)"
+      }
+    }
 }
