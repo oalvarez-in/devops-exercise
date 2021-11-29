@@ -16,8 +16,7 @@ jobs:
         id: github_release
         uses: mikepenz/release-changelog-builder-action@v1
         with:
-          fromTag: "master"
-          toTag: ${{ github.event.release.tag_name }}
+          configuration: ".github/config/changelog.json"
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_TOK }}
       - name: Get last pre-release
