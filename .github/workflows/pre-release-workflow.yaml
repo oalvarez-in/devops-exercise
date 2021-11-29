@@ -17,6 +17,7 @@ jobs:
           configuration: ".github/config/configuration.json"
           owner: "oalvarez-in"
           ignorePreReleases: "${{ !contains('rc-', github.ref) }}"
+          failOnError: true
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_TOK }}
       - name: Get last pre-release
