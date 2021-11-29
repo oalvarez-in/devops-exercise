@@ -11,18 +11,12 @@ jobs:
         with:
           token: ${{ secrets.GIT_TOK }}
           submodules: recursive
-          fetch-depth: 0
-      - name: Get conventional commits next version
-        uses: ./.github/actions/my-action
-        id: cc
-        with:
-          project: "."
-          prefix: ""          
+          fetch-depth: 0       
       - name: Build Changelog
         id: github_release
         uses: mikepenz/release-changelog-builder-action@v1
         with:
-          fromTag: ${{ steps.cc.outputs.latest_tag }}
+          fromTag: "master"
           toTag: ${{ github.event.release.tag_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_TOK }}
