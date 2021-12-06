@@ -13,6 +13,8 @@ jobs:
       - name: Build Changelog
         id: github_release
         uses: mikepenz/release-changelog-builder-action@v1
+        with:
+          config_file: .github/config/configuration.json
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_TOK }}
       - name: Get last pre-release
