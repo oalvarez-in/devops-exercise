@@ -7,7 +7,7 @@ metadata:
     github.com/project-slug: oalvarez-in/devops-exercise
     backstage.io/techdocs-ref: dir:.
     backstage.io/kubernetes-id: devops-exercise
-    grafana/tag-selector: "a52SvGpGz"
+    grafana/tag-selector: "backstage-grafana"
   tags:
     - docker
     - python
