@@ -33,6 +33,7 @@ jobs:
       - run: |
           COMMIT_BASE=$(git merge-base $MERGE_BASE $pre_release)
           echo $COMMIT_BASE
+          git fetch $MERGE_BASE
           CHANGES=`git diff --name-only origin/dev^! -- . ':!images' | wc -l`
           echo $CHANGES
           if [ $CHANGES -gt  0 ]
