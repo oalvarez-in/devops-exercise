@@ -30,8 +30,9 @@ jobs:
           id: ${{ steps.latest_release.outputs.id }}
           body: ${{ steps.github_release.outputs.changelog }}
       - uses: actions/checkout@master
+        with:
+          fetch-depth: 0
       - run: |
-          git pull
           COMMIT_BASE=$(git merge-base $MERGE_BASE $pre_release)
           echo $COMMIT_BASE
           CHANGES=`git diff --name-only "$COMMIT_BASE^!" -- . ':!images' | wc -l`
@@ -47,4 +48,3 @@ jobs:
         env:
           pre_release: ${{ github.event.release.tag_name }}
           MERGE_BASE: origin/master
-          BRANCH_BASE: master
