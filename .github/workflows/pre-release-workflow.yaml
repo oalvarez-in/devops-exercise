@@ -31,7 +31,8 @@ jobs:
           body: ${{ steps.github_release.outputs.changelog }}
       - uses: actions/checkout@master
       - run: |
-          git fetch $BRANCH_BASE
+          git checkout $BRANCH_BASE
+          git checkout $pre_release
           COMMIT_BASE=$(git merge-base $MERGE_BASE $pre_release)
           echo $COMMIT_BASE
           CHANGES=`git diff --name-only "$COMMIT_BASE^!" -- . ':!images' | wc -l`
