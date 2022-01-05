@@ -31,7 +31,18 @@ jobs:
           body: ${{ steps.github_release.outputs.changelog }}
       - uses: actions/checkout@master
       - run: |
+          COMMIT_BASE=$(git merge-base $MERGE_BASE $PRE_RELEASE_TAG)^!
+          echo $COMMIT_BASE
+          CHANGES=`git diff --name-only $COMMIT_BASE -- . ':!images' | wc -l`
+          echo $CHANGES
+          if [ $CHANGES -gt  0 ]
+          then     
+          echo "Congratulations it's all ok"        
+          else
+          echo "- Nothing to do in Core"
+          fi                     
           echo $pre_release
           echo "This is a test to Exec an action from prerelease"
         env:
           pre_release: ${{ github.event.release.tag_name }}
+          MERGE_BASE: origin/master
