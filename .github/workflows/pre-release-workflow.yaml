@@ -31,9 +31,9 @@ jobs:
           body: ${{ steps.github_release.outputs.changelog }}
       - uses: actions/checkout@master
       - run: |
-          COMMIT_BASE=$(git merge-base $MERGE_BASE $pre_release)^!
+          COMMIT_BASE=$(git merge-base $MERGE_BASE $pre_release)
           echo $COMMIT_BASE
-          CHANGES=`git diff --name-only $COMMIT_BASE -- . ':!images' | wc -l`
+          CHANGES=`git diff --name-only "$COMMIT_BASE^!" -- . ':!images' | wc -l`
           echo $CHANGES
           if [ $CHANGES -gt  0 ]
           then     
