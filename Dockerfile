@@ -1,5 +1,5 @@
 FROM python:slim
-LABEL maintainer="@oalvarez"
+LABEL maintainer="oalvarez-in"
 COPY . /service
 WORKDIR /service
 RUN pip install -r requirements.txt
