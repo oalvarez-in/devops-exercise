@@ -40,7 +40,7 @@ jobs:
             echo 'Update current TAG'
             echo $PRE_RELEASE_TAG
           else
-            echo 'Don't apply any change'
+            echo 'Dont apply any change'
             PRE_RELEASE_TAG=$pre_release
           fi
           
