@@ -1,7 +1,7 @@
 name: Pre-Release created
 on:
   release:
-    types: [created]
+    types: [created, updated]
 jobs:
   pre-release:
     if: "github.event.release.prerelease"
