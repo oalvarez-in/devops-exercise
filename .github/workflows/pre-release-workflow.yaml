@@ -31,6 +31,17 @@ jobs:
       - uses: actions/checkout@master
         with:
           fetch-depth: 0
+      - name: If its a patch
+        if: "!github.event.release.prerelease"
+        run: |       
+          COMMIT_PATCH=`git log -n 1 ${GITHUB_SHA} | grep 'Backstage patch' | awk '{print $3}' | cut -c -8`
+          IMAGE_SOURCE=$DOCKER_REGISTRY/$REPOSITORY:$COMMIT_PATCH
+          echo $IMAGE_SOURCE
+      - name: If it a pre-release
+        if: "github.event.release.prerelease"
+        run: |
+          IMAGE_SOURCE=$DOCKER_REGISTRY/$REPOSITORY:${GITHUB_SHA:0:8}
+          echo $IMAGE_SOURCE          
       - run: |
           PATCH_STR='version'
           if [[ "$pre_release" =~ .*"$PATCH_STR".* ]]; then
