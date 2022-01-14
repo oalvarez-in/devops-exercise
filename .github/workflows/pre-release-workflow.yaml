@@ -1,0 +1,73 @@
+name: Pre-Release created
+on:
+  release:
+    types: [created, edited]
+jobs:
+  pre-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: "0"
+      - name: Build Changelog
+        id: github_release
+        uses: mikepenz/release-changelog-builder-action@v1
+        with:
+          configuration: .github/config/configuration.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_TOK }}
+      - name: Get last pre-release
+        id: latest_release
+        uses: kaliber5/action-get-release@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag_name: ${{ github.event.release.tag_name }}
+      - name: Update last Pre-release
+        uses: kaliber5/action-update-release@v1
+        with:
+          token: ${{ secrets.GIT_TOK }}
+          id: ${{ steps.latest_release.outputs.id }}
+          body: ${{ steps.github_release.outputs.changelog }}
+      - uses: actions/checkout@master
+        with:
+          fetch-depth: 0
+      - name: If its a patch
+        if: "!github.event.release.prerelease"
+        run: |       
+          IMAGE_SOURCE=`git log -n 1 ${GITHUB_SHA} | grep 'Backstage patch' | awk '{print $3}' | cut -c -8`
+          echo $IMAGE_SOURCE >> $GITHUB_ENV
+          echo $IMAGE_SOURCE
+      - name: If it a pre-release
+        if: "github.event.release.prerelease"
+        run: |
+          IMAGE_SOURCE=${GITHUB_SHA:0:8}
+          echo $IMAGE_SOURCE
+          echo $IMAGE_SOURCE >> $GITHUB_ENV
+      - run: |
+          PATCH_STR='version'
+          if [[ "$pre_release" =~ .*"$PATCH_STR".* ]]; then
+            PRE_TAG=`echo $pre_release | sed 's/version-//'`
+            PRE_RELEASE_TAG=rc-`echo $PRE_TAG`
+            echo 'Update current TAG'
+            echo $PRE_RELEASE_TAG
+          else
+            echo 'Dont apply any change'
+            PRE_RELEASE_TAG=$pre_release
+          fi
+          
+          COMMIT_BASE=$(git merge-base $MERGE_BASE $pre_release)
+          echo $COMMIT_BASE
+          CHANGES=`git diff --name-only "$COMMIT_BASE^!" -- . ':!images' | wc -l`
+          echo $CHANGES
+          if [ $CHANGES -gt  0 ]
+          then     
+          echo "Congratulations it's all ok"        
+          else
+          echo "- Nothing to do in Core"
+          fi 
+          echo $REGISTRY:$IMAGE_SOURCE
+          echo "This is a test to Exec an action from prerelease"
+        env:
+          pre_release: ${{ github.event.release.tag_name }}
+          MERGE_BASE: origin/master
+          REGISTRY: aws.com/test_image

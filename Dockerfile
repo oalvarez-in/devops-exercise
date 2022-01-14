@@ -1,4 +1,5 @@
 FROM python:3.7.10-slim-buster
+LABEL maintainer="oalvarez@test"
 COPY . /service
 WORKDIR /service
 RUN pip install -r requirements.txt

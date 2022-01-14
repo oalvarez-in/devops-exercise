@@ -1,0 +1,26 @@
+{
+    "categories": [
+      {
+        "title": "## 🚀 Features",
+        "labels": ["feature", "enhacement"]
+      },
+      {
+        "title": "## 🐛 Fixes",
+        "labels": ["fix", "bug"]
+      },
+      {
+        "title": "## 🧪 Tests",
+        "labels": ["test"]
+      }
+    ],
+    "sort": "ASC",
+    "template": "${{CHANGELOG}}\n\n<details>\n<summary>Uncategorized</summary>\n\n${{UNCATEGORIZED}}\n</details>",
+    "pr_template": "- ${{TITLE}}\n   - PR: #${{NUMBER}}",
+    "empty_template": "- no changes",
+    "max_tags_to_fetch": 1000,
+    "max_pull_requests": 1000,
+    "max_back_track_time_days": 1000,
+    "tag_resolver": {
+      "method": "sort"
+    }
+}

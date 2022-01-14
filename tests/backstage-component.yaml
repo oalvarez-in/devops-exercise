@@ -1,0 +1,23 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: devops-exercise
+  description: The place to be, for great artists
+  annotations:
+    github.com/project-slug: oalvarez-in/devops-exercise
+    backstage.io/techdocs-ref: dir:.
+    backstage.io/kubernetes-id: devops-exercise
+    grafana/tag-selector: "backstage-grafana"
+  tags:
+    - docker
+    - python
+    - kustomize
+  links:
+    - url: https://hub.docker.com/r/oalva/arkondata-app
+      title: DockerHub
+      icon: cloud
+spec:
+  type: service
+  lifecycle: production
+  owner: oalvarez-in
+  system: artist-engagement-portal
