@@ -34,14 +34,15 @@ jobs:
       - name: If its a patch
         if: "!github.event.release.prerelease"
         run: |       
-          COMMIT_PATCH=`git log -n 1 ${GITHUB_SHA} | grep 'Backstage patch' | awk '{print $3}' | cut -c -8`
-          IMAGE_SOURCE=$DOCKER_REGISTRY/$REPOSITORY:$COMMIT_PATCH
+          IMAGE_SOURCE=`git log -n 1 ${GITHUB_SHA} | grep 'Backstage patch' | awk '{print $3}' | cut -c -8`
+          echo $IMAGE_SOURCE >> $GITHUB_ENV
           echo $IMAGE_SOURCE
       - name: If it a pre-release
         if: "github.event.release.prerelease"
         run: |
-          IMAGE_SOURCE=$DOCKER_REGISTRY/$REPOSITORY:${GITHUB_SHA:0:8}
-          echo $IMAGE_SOURCE          
+          IMAGE_SOURCE=${GITHUB_SHA:0:8}
+          echo $IMAGE_SOURCE
+          echo $IMAGE_SOURCE >> $GITHUB_ENV
       - run: |
           PATCH_STR='version'
           if [[ "$pre_release" =~ .*"$PATCH_STR".* ]]; then
@@ -63,9 +64,11 @@ jobs:
           echo "Congratulations it's all ok"        
           else
           echo "- Nothing to do in Core"
-          fi                     
-          echo $PRE_RELEASE_TAG
+          fi 
+          echo 
+          echo $REGISTRY:$IMAGE_SOURCE
           echo "This is a test to Exec an action from prerelease"
         env:
           pre_release: ${{ github.event.release.tag_name }}
           MERGE_BASE: origin/master
+          REGISTRY: aws.com/test_image
