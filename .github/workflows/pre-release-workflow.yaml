@@ -32,11 +32,9 @@ jobs:
         with:
           fetch-depth: 0
       - name: If its a patch
-        if: "!github.event.release.prerelease"
+        if: (${{ github.event.action }} == 'edited')
         run: |
-          echo 'IMAGE_SOURCE=<<EOF' >> $GITHUB_ENV
-          git log -n 1 ${GITHUB_SHA} | grep 'Backstage patch' | awk '{print $3}' | cut -c -8 >> $GITHUB_ENV
-          echo 'OUTDATED_DEPENDENCIES<<EOF' >> $GITHUB_ENV
+          echo "IMAGE_SOURCE=$(git log -n 1 ${GITHUB_SHA} | grep 'Backstage patch' | awk '{print $3}' | cut -c -8)" >> $GITHUB_ENV
       - name: If it a pre-release
         if: "github.event.release.prerelease"
         run: |
