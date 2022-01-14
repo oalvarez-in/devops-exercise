@@ -38,7 +38,7 @@ jobs:
           echo ${{ github.event_name }}
           echo ${{ github.event.action }}
       - name: If it a pre-release
-        if: github.event_name == 'release' && github.event.action == 'created')
+        if: (github.event_name == 'release' && github.event.action == 'created')
         run: |
           echo "IMAGE_SOURCE=$(echo ${GITHUB_SHA:0:8})" >> $GITHUB_ENV
           echo ${{ github.event_name }}
