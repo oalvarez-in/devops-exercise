@@ -65,7 +65,6 @@ jobs:
           else
           echo "- Nothing to do in Core"
           fi 
-          echo 
           echo $REGISTRY:$IMAGE_SOURCE
           echo "This is a test to Exec an action from prerelease"
         env:
