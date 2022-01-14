@@ -32,13 +32,17 @@ jobs:
         with:
           fetch-depth: 0
       - name: If its a patch
-        if: (github.event.release.prerelease && ${{ github.event.action }} == 'edited')
+        if: (${{ github.event_name }} == 'release' && ${{ github.event.action }} == 'edited')
         run: |
           echo "IMAGE_SOURCE=$(git log -n 1 ${GITHUB_SHA} | grep 'Backstage patch' | awk '{print $3}' | cut -c -8)" >> $GITHUB_ENV
+          echo ${{ github.event_name }}
+          echo ${{ github.event.action }}
       - name: If it a pre-release
-        if: "github.event.release.prerelease"
+        if: (${{ github.event_name }} == 'release' && ${{ github.event.action }} == 'created')
         run: |
           echo "IMAGE_SOURCE=$(echo ${GITHUB_SHA:0:8})" >> $GITHUB_ENV
+          echo ${{ github.event_name }}
+          echo ${{ github.event.action }}
       - run: |
           PATCH_STR='version'
           if [[ "$pre_release" =~ .*"$PATCH_STR".* ]]; then
