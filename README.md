@@ -1,4 +1,4 @@
-# Abraxas DevOps Exercise
+# DevOps Exercise
 
 ## **Intro**
 
@@ -64,7 +64,7 @@ To test the service:
 - **GET** request: Give actual number.
 - **POST** request: Sum 1 unit to actual number
 
-## Deliverables
+## Deliverable
 
 - A link to the public docker registry where the image is published.
   [Registry](https://hub.docker.com/r/oalva/arkondata-app)
