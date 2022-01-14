@@ -5,13 +5,13 @@ metadata:
   description: The place to be, for great artists
   annotations:
     github.com/project-slug: oalvarez-in/devops-exercise
-    backstage.io/techdocs-ref: dir:.
     backstage.io/kubernetes-id: devops-exercise
     grafana/tag-selector: "backstage-grafana"
   tags:
     - docker
     - python
     - kustomize
+    - GithuActions
   links:
     - url: https://hub.docker.com/r/oalva/arkondata-app
       title: DockerHub
