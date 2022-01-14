@@ -34,14 +34,15 @@ jobs:
       - name: If its a patch
         if: "!github.event.release.prerelease"
         run: |
-          IMAGE_SOURCE=$(git log -n 1 ${GITHUB_SHA} | grep 'Backstage patch' | awk '{print $3}' | cut -c -8)
-          echo "IMAGE_SOURCE=$IMAGE_SOURCE" >> $GITHUB_ENV
-          echo $IMAGE_SOURCE
+          echo 'IMAGE_SOURCE=<<EOF' >> $GITHUB_ENV
+          git log -n 1 ${GITHUB_SHA} | grep 'Backstage patch' | awk '{print $3}' | cut -c -8 >> $GITHUB_ENV
+          echo 'OUTDATED_DEPENDENCIES<<EOF' >> $GITHUB_ENV
       - name: If it a pre-release
         if: "github.event.release.prerelease"
         run: |
-          IMAGE_SOURCE=$(${GITHUB_SHA:0:8})
-          echo "IMAGE_SOURCE=$IMAGE_SOURCE" >> $GITHUB_ENV
+          echo 'IMAGE_SOURCE=<<EOF' >> $GITHUB_ENV
+          ${GITHUB_SHA:0:8} >> $GITHUB_ENV
+          echo 'OUTDATED_DEPENDENCIES<<EOF' >> $GITHUB_ENV
       - run: |
           PATCH_STR='version'
           if [[ "$pre_release" =~ .*"$PATCH_STR".* ]]; then
