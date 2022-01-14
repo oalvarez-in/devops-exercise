@@ -41,8 +41,7 @@ jobs:
         if: "github.event.release.prerelease"
         run: |
           IMAGE_SOURCE=$(${GITHUB_SHA:0:8})
-          echo $IMAGE_SOURCE
-          echo "$IMAGE_SOURCE" >> $GITHUB_ENV
+          echo $IMAGE_SOURCE >> $GITHUB_ENV
       - run: |
           PATCH_STR='version'
           if [[ "$pre_release" =~ .*"$PATCH_STR".* ]]; then
