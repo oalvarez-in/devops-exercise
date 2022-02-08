@@ -6,8 +6,8 @@ import unittest
 
 class MainTest(TestCase):
     def create_app(self):
-        app.config['TESTING'] = True
-        app.config['DEBUG'] = False
+        app.config['TESTING'] = False
+        app.config['DEBUG'] = True
         return app
 
     def test_app_exists(self):
