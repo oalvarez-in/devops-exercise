@@ -3,4 +3,4 @@ about backstage
 Writting extra lines to test conflict commmits
 Line 4 Hi world, Update this line 4 
 
-Line 6 New content
+Line 6 New content, New update to test Path changes
