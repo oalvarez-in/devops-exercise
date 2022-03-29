@@ -10,8 +10,6 @@ metadata:
     backstage.io/techdocs-ref: url:https://backstagearkonexegolqft.blob.core.windows.net/backstage-techdocs
   tags:
     - docker
-    - python
-    - kustomize
   links:
     - url: https://hub.docker.com/r/oalva/arkondata-app
       title: DockerHub
