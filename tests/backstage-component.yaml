@@ -7,7 +7,7 @@ metadata:
     github.com/project-slug: oalvarez-in/devops-exercise
     backstage.io/kubernetes-id: devops-exercise
     grafana/tag-selector: "backstage-grafana"
-    backstage.io/techdocs-ref: url:https://backstagearkonexegolqft.blob.core.windows.net/backstage-techdocs
+    backstage.io/techdocs-ref: url:https://backstagearkonexegolqft.blob.core.windows.net/backstage-tech
   tags:
     - docker
   links:
