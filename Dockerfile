@@ -1,4 +1,4 @@
-FROM python:3.7.10-slim-buster
+FROM python:3.10.3-slim-buster
 LABEL maintainer="oal@test.org"
 COPY . /service
 WORKDIR /service
