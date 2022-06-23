@@ -4,7 +4,7 @@
 
 ---
 
-As a DevOps we need you to create a mechanism to deploy nanoservices. You'll be in charge of deploy, monitor, scale applications and promote the DevOps culture with the development team. But let's start by the begining, below you'll find the requirements for this test.
+As a DevOps we need you to create a mechanism to deploy nanoservices. You'll be in charge of deploying, monitoring, scaling applications and promoting the DevOps culture with the development team. But let's start by the begining, you'll find the requirements for this test below.
 
 ### Architecture
 
@@ -36,7 +36,7 @@ This DevOps exercise contains the essential elements of the CI/CD process for co
   python -m unittest tests/test_base.py
 ```
 
-- Execution of vulnerability testing using snyk
+- Execution of vulnerability testing using Snyk
 
 ```sh
 snyk monitor --file=requirements.txt --command=python3 --package-manager=pip --skip-unresolved=true
@@ -44,7 +44,7 @@ snyk monitor --file=requirements.txt --command=python3 --package-manager=pip --s
 
 <img src="images/snyk.png" width="650px" height="350px">
 
-- Create and upload image to [DockerHub](https://hub.docker.com/r/oalva/arkondata-app)
+- Creating and uploading image to [DockerHub](https://hub.docker.com/r/oalva/arkondata-app)
 - Configuring [YAML files](kustomize/base) using Kustomize
 
 ```sh
@@ -55,7 +55,7 @@ kustomize edit set image arkondata-gitops=oalva/arkondata-app:${{ env.CONTAINER_
 
 <img src="images/argocd.png" width="650px" height="350px">
 
-- When a new version is detected apply Rolling Update for keep the traffic without break-down the service.
+- When a new version is detected, apply Rolling Update for keeping the traffic without break-down the service.
 
 <img src="images/rollingupdate.png" width="650px" height="350px">
 
@@ -66,7 +66,7 @@ To test the service:
 
 ## Deliverable
 
-- A link to the public docker registry where the image is published.
+- Public docker registry link where the image is published.
   [Registry](https://hub.docker.com/r/oalva/arkondata-app)
 
 - A link to your repository containing:
